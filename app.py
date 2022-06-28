@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, url_for, flash, redirect
 from forms import CourseForm
+import sqlite3
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'd1585fd7c253df42cd25b29573c902b65339d71aa342e68b'
@@ -11,6 +12,20 @@ courses_list = [{
     'available': True,
     'level': 'Beginner'
 }]
+
+
+def get_db_connection():
+    conn = sqlite3.connect('database.db')
+    conn.row_factory = sqlite3.Row
+    return conn
+
+
+messages = [{'title': 'Message One',
+             'content': 'Message One Content'},
+            {'title': 'Message Two',
+             'content': 'Message Two Content'}
+            ]
+
 
 @app.route('/index/')
 @app.route('/', methods=('GET', 'POST'))
@@ -53,10 +68,11 @@ def create():
         elif not content:
             flash('Content is required!')
         else:
-            #messages.append({'title': title, 'content': content})
+            messages.append({'title': title, 'content': content})
             return redirect(url_for('index'))
 
     return render_template('create.html')
+
 
 @app.route('/courses/')
 def courses():

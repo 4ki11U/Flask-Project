@@ -16,12 +16,12 @@
     <nav>
         <a href="{{ url_for('index') }}">FlaskApp</a>
         <a href="{{ url_for('courses') }}">Courses</a>
+        <a href="{{ url_for('comments') }}">Comments</a>
+        <a href="{{ url_for('about') }}">About</a>
     </nav>
     <hr>
     <div class="content">
         {% block content %} {% endblock %}
-        <img src="https://html.sammy-codes.com/images/small-profile.jpeg"/>
     </div>
 </body>
 </html>
-
