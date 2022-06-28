@@ -1,16 +1,20 @@
 from flask import Flask, render_template, request, url_for, flash, redirect, abort
-from forms import CourseForm
+from forms import UserCreating
 import sqlite3
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'd1585fd7c253df42cd25b29573c902b65339d71aa342e68b'
 
 courses_list = [{
-    'title': 'Python 101',
-    'description': 'Learn Python basics',
-    'price': 34,
-    'available': True,
-    'level': 'Beginner'
+    'task_nomer': 'Python 101',
+    'user_name': 'Learn Python basics',
+    'user_surname': 34,
+    'callway_number': True,
+    'deskcontrol': 'Beginner',
+    'gorodok': 'Beginner',
+    'email': 'Beginner',
+    'smartbox': 'Beginner',
+    'vpn': 'Beginner'
 }]
 
 
@@ -18,6 +22,7 @@ def get_db_connection():
     conn = sqlite3.connect('my_flask_database.db')
     conn.row_factory = sqlite3.Row
     return conn
+
 
 def get_post(post_id):
     conn = get_db_connection()
@@ -39,14 +44,18 @@ messages = [{'title': 'Message One',
 @app.route('/index/')
 @app.route('/', methods=('GET', 'POST'))
 def index():
-    form = CourseForm()
+    form = UserCreating()
     if form.validate_on_submit():
-        courses_list.append({'title': form.title.data,
-                             'description': form.description.data,
-                             'price': form.price.data,
-                             'available': form.available.data,
-                             'level': form.level.data
-                             })
+        # courses_list.append({'task_nomer': form.task_nomer.data,
+        #                      'user_name': form.user_name.data,
+        #                      'user_surname': form.user_surname.data,
+        #                      'callway_number': form.callway_number.data,
+        #                      'deskcontrol': form.deskcontrol.data,
+        #                      'gorodok': form.gorodok.data,
+        #                      'email': form.email.data,
+        #                      'smartbox': form.smartbox.data,
+        #                      'vpn': form.vpn.data
+        #                      })
         return redirect(url_for('courses'))
     return render_template('index.html', form=form)
 
