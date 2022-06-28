@@ -39,20 +39,16 @@ messages = [{'title': 'Message One',
 @app.route('/index/')
 @app.route('/', methods=('GET', 'POST'))
 def index():
-    # form = CourseForm()
-    # if form.validate_on_submit():
-    #     courses_list.append({'title': form.title.data,
-    #                          'description': form.description.data,
-    #                          'price': form.price.data,
-    #                          'available': form.available.data,
-    #                          'level': form.level.data
-    #                          })
-    #     return redirect(url_for('courses'))
-    # return render_template('index.html', form=form)
-    conn = get_db_connection()
-    posts = conn.execute('SELECT * FROM posts').fetchall()
-    conn.close()
-    return render_template('index.html', posts=posts)
+    form = CourseForm()
+    if form.validate_on_submit():
+        courses_list.append({'title': form.title.data,
+                             'description': form.description.data,
+                             'price': form.price.data,
+                             'available': form.available.data,
+                             'level': form.level.data
+                             })
+        return redirect(url_for('courses'))
+    return render_template('index.html', form=form)
 
 
 @app.route('/about/')
