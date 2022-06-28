@@ -1,19 +1,30 @@
 from flask import Flask, render_template, request, url_for, flash, redirect
+from forms import CourseForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'd1585fd7c253df42cd25b29573c902b65339d71aa342e68b'
 
-messages = [{'title': 'Message One',
-             'content': 'Message One Content'},
-            {'title': 'Message Two',
-             'content': 'Message Two Content'}
-            ]
+courses_list = [{
+    'title': 'Python 101',
+    'description': 'Learn Python basics',
+    'price': 34,
+    'available': True,
+    'level': 'Beginner'
+}]
 
-
-@app.route('/')
 @app.route('/index/')
-def start_app():
-    return render_template('index.html', messages=messages)
+@app.route('/', methods=('GET', 'POST'))
+def index():
+    form = CourseForm()
+    if form.validate_on_submit():
+        courses_list.append({'title': form.title.data,
+                             'description': form.description.data,
+                             'price': form.price.data,
+                             'available': form.available.data,
+                             'level': form.level.data
+                             })
+        return redirect(url_for('courses'))
+    return render_template('index.html', form=form)
 
 
 @app.route('/about/')
@@ -42,7 +53,11 @@ def create():
         elif not content:
             flash('Content is required!')
         else:
-            messages.append({'title': title, 'content': content})
-            return redirect(url_for('start_app'))
+            #messages.append({'title': title, 'content': content})
+            return redirect(url_for('index'))
 
     return render_template('create.html')
+
+@app.route('/courses/')
+def courses():
+    return render_template('courses.html', courses_list=courses_list)
