@@ -1,7 +1,6 @@
-from flask_wtf import FlaskForm
-from wtforms import (StringField, TextAreaField, IntegerField, BooleanField,
-                     RadioField)
+from wtforms import (StringField, TextAreaField, IntegerField, BooleanField,RadioField)
 from wtforms.validators import InputRequired, Length
+from flask_wtf import FlaskForm
 
 
 class CourseForm(FlaskForm):
