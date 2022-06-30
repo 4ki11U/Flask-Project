@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, url_for, flash, redirect, abo
 from forms import UserCreating
 import sqlite3
 
+from database import FDataBase, getMenu
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'd1585fd7c253df42cd25b29573c902b65339d71aa342e68b'
 
@@ -138,3 +140,21 @@ def delete(id):
     conn.close()
     flash('"{}" was successfully deleted!'.format(post['title']))
     return redirect(url_for('index'))
+
+
+dbase = None
+
+@app.before_request
+def before_request():
+    """Установление соединения с БД перед выполнением запроса"""
+    global dbase
+    #db = get_db()
+    #dbase = FDataBase(db)
+
+@app.route("/login")
+def login() :
+    return render_template("login.html", menu=dbase.getMenu(), title="Авторизация")
+
+@app.route("/register")
+def register():
+    return render_template("register.html", menu=dbase.getMenu(), title="Регистрация")
