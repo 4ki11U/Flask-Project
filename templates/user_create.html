@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Создать нового юзверя {% endblock %}</h1>
+
+    <form method="POST" action="/user_create/">
+        {{ form.csrf_token }}
+
+        <p>
+            {{ form.task_number.label }}
+            {{ form.task_number(size=20) }}
+        </p>
+
+        {% if form.task_number.errors %}
+            <ul class="errors">
+                {% for error in form.task_number.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <p>
+            {{ form.user_name.label }}
+            {{ form.user_name(size=20) }}
+        </p>
+
+        {% if form.user_name.errors %}
+            <ul class="errors">
+                {% for error in form.user_name.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <p>
+            {{ form.user_surname.label }}
+            {{ form.user_surname(size=20) }}
+        </p>
+
+        {% if form.user_surname.errors %}
+            <ul class="errors">
+                {% for error in form.user_surname.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <p>
+            {{ form.callway_number.label }}
+            {{ form.callway_number() }}
+        </p>
+
+        {% if form.callway_number.errors %}
+            <ul class="errors">
+                {% for error in form.callway_number.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <p>
+            {{ form.project.label }}
+            {{ form.project() }}
+        </p>
+
+        {% if form.project.errors %}
+            <ul class="errors">
+                {% for error in form.project.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+
+        <p>
+            {{ form.DeskControl() }} {{ form.DeskControl.label }}
+        </p>
+
+        {% if form.DeskControl.errors %}
+            <ul class="errors">
+                {% for error in form.DeskControl.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <p>
+            {{ form.gorodok() }} {{ form.gorodok.label }}
+        </p>
+
+        {% if form.gorodok.errors %}
+            <ul class="errors">
+                {% for error in form.gorodok.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+
+        <p>
+            {{ form.mail() }} {{ form.mail.label }}
+        </p>
+
+        {% if form.mail.errors %}
+            <ul class="errors">
+                {% for error in form.mail.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+
+        <p>
+            {{ form.SmartBox() }} {{ form.SmartBox.label }}
+        </p>
+
+        {% if form.SmartBox.errors %}
+            <ul class="errors">
+                {% for error in form.SmartBox.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+
+        <p>
+            {{ form.VPN() }} {{ form.VPN.label }}
+        </p>
+
+        {% if form.VPN.errors %}
+            <ul class="errors">
+                {% for error in form.VPN.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <p>
+            <input type="submit" value="C R E A T E !">
+        </p>
+    </form>
+
+{% endblock %}

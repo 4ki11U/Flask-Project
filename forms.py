@@ -1,26 +1,39 @@
+from flask_wtf import FlaskForm
 from wtforms import (StringField, TextAreaField, IntegerField, BooleanField,RadioField)
 from wtforms.validators import InputRequired, Length
-from flask_wtf import FlaskForm
 
 
-class UserCreating(FlaskForm):
-    task_nomer = StringField('Номер Задачи', validators=[InputRequired(), Length(min=1, max=20)])
+class CourseForm(FlaskForm):
+    title = StringField('Title', validators=[InputRequired(),
+                                             Length(min=10, max=100)])
+    description = TextAreaField('Course Description',
+                                validators=[InputRequired(),
+                                            Length(max=200)])
+    price = IntegerField('Price', validators=[InputRequired()])
+    level = RadioField('Level',
+                       choices=['Beginner', 'Intermediate', 'Advanced'],
+                       validators=[InputRequired()])
+    available = BooleanField('Available', default='checked')
 
-    user_name = StringField('Имя пользователя', validators=[InputRequired(), Length(min=3, max=20)])
 
-    user_surname = StringField('Фамилия Пользователя', validators=[InputRequired(), Length(min=3, max=20)])
+class UserCreate(FlaskForm):
+    task_number = StringField('Номер задачи', validators=[InputRequired(), Length(min=1, max=35)])
 
-    callway_number = StringField('Фамилия Пользователя', validators=[InputRequired(), Length(min=3, max=20)])
+    user_name = StringField('Имя пользователя', validators=[InputRequired(), Length(min=3, max=35)])
 
-    #level = RadioField('Level', choices=['Beginner', 'Intermediate', 'Advanced'], validators=[InputRequired()])
+    user_surname = StringField('Фамилия пользователя', validators=[InputRequired(), Length(min=3, max=35)])
 
-    deskcontrol = BooleanField('DeskControl', default='None')
+    callway_number = IntegerField('Логин CallWay', validators=[InputRequired()])
 
-    gorodok = BooleanField('Учетная Система ГородОК', default='None')
+    project = RadioField('В каком проекте нужно создать ?',choices=['ЖКХ (20.120)', 'КВК\КТЕ (20.26)', 'ЖКХ + КВК'],
+                         validators=[InputRequired()])
 
-    email = BooleanField('Почта', default='None')
+    DeskControl = BooleanField('DeskControl', default='')
 
-    smartbox = BooleanField('SmartBox', default='None')
+    gorodok = BooleanField('ГородОК', default='')
 
-    vpn = BooleanField('VPN', default='None')
+    mail = BooleanField('Почти', default='')
 
+    SmartBox = BooleanField('SmartBox', default='')
+
+    VPN = BooleanField('VPN', default='')
